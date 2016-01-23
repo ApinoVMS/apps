@@ -1,0 +1,51 @@
+masterviews = typeof(masterviews) !== 'undefined' ? masterviews : '' 
+      
+table#profiles
+  tfoot
+    page = (page) || 1
+    s = (page > 1) ? null : 'display:none'
+    td
+     a#bck(href="#{(+page-1)}", style=s) &laquo;
+     a#fwd(href="#{(+page+1)}") &raquo;
+  thead
+    tr
+      th Ticker
+      th iType
+      th Position
+      th Earnings
+      th News
+      th hover
+      th click1
+      if typeof user !== 'undefined'
+        th Action
+
+  tbody   
+    each profile, id in anlagen
+      - console.log("id: "+profile.ticker);
+      - var x
+
+      tr(id=profile.ticker)
+        // Express 2 
+        //!= partial(masterviews + 'row', {collection: profile})
+        // Express 3
+
+         each ro in profile
+          -x = ""+ro;
+          -if (ro && ro==profile.click) x='<span data-content="'+ro+'" class="glyphicon glyphicon-picture" data-toggle="popover" data-trigger="hover" title="..." data-html="true"></span>'; //continue;//x="---"+ro; 
+          -else if (ro && profile.hover && ro.length==profile.hover.length){
+          - x="<span class='glyphicon glyphicon-picture' data-toggle='popover' data-trigger='hover' title='...' data-html='true' data-content='"+ro;
+          - x+="'></span>"
+          -} 
+          //-if (ro && profile.click && ro.length=ro && profile.click && ro.length==profile.click.length) x+="click: ";//
+          - console.log("id: "+id+", row: "+ro )
+          // match with the column names: see p148 to introspect the row object 
+          
+          td!= x
+        //each img in images
+
+          //td!='<span class="glyphicon glyphicon-picture" data-toggle="popover" data-trigger="hover" title="..." data-html="true" data-content="<img width=\u0027600\u0027 src=\u0027../img/Trade/Tickers/USG/image1.png\u0027/>"></span>  '+img
+        mixin del(id)
+mixin add
+       
+mixin adminScript  
+
